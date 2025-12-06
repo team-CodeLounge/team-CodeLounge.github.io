@@ -1,0 +1,43 @@
+name: Deploy Astro site to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node 버전 지정
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      # 의존성 설치
+      - run: yarn install
+
+      # Astro 빌드
+      - run: yarn build
+
+      # Build output 업로드 (dist)
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
