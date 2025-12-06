@@ -72,7 +72,7 @@ export default defineConfig({
           autogenerate: { directory: 'part2' },
         },
         {
-          label: 'Test',           // Test 섹션 제목
+          label: '3. SwiftUI',           // Test 섹션 제목
           
           // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
           // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
