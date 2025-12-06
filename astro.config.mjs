@@ -56,26 +56,27 @@ export default defineConfig({
       // 좌측 사이드바 메뉴 구성
       sidebar: [
         {
-          label: 'Guides',              // 사이드바 섹션 제목
-          items: [
-            // slug는 실제 문서 파일 위치와 연결됨
-            // 예: src/content/docs/guides/example.md
-            { label: 'Example Guide', slug: 'guides/example' },
-          ],
+          label: '1. 시작하기',              // 사이드바 섹션 제목
+          // items: [
+          //   // slug는 실제 문서 파일 위치와 연결됨
+          //   // 예: src/content/docs/guides/example.md
+          //   { label: 'Example Guide', slug: 'guides/example' },
+          // ],
+          autogenerate: { directory: 'part1' },
         },
         {
-          label: 'Reference',           // Reference 섹션 제목
+          label: '2. Swift 문법',           // Reference 섹션 제목
           
           // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
           // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
-          autogenerate: { directory: 'reference' },
+          autogenerate: { directory: 'part2' },
         },
         {
           label: 'Test',           // Test 섹션 제목
           
           // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
           // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
-          autogenerate: { directory: 'test' },
+          autogenerate: { directory: 'part3' },
         },
       ],
     }),
