@@ -42,7 +42,7 @@ export default defineConfig({
     // 사이드바 구성, 문서 레이아웃, 검색 등을 제공하는 문서 사이트 전용 통합 패키지.
     starlight({		
       // 문서 사이트의 전체 제목 (헤더 + 브라우저 탭 제목에 사용됨)
-      title: 'Docs',
+      title: 'Swift Docs',
 
       // 우측 상단에 표시될 소셜 링크 모음
       social: [
@@ -69,6 +69,13 @@ export default defineConfig({
           // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
           // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
           autogenerate: { directory: 'reference' },
+        },
+        {
+          label: 'Test',           // Test 섹션 제목
+          
+          // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
+          // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
+          autogenerate: { directory: 'test' },
         },
       ],
     }),
