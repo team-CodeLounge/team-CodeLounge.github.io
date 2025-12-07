@@ -31,6 +31,12 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+// Expressive Code: 코드박스 줄번호 지원
+// yarn add astro-expressive-code @expressive-code/plugin-line-numbers
+// https://shiki.style/themes?utm_source=chatgpt.com
+import astroExpressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+
 // https://astro.build/config
 export default defineConfig({
   // 사이트의 절대 URL (GitHub Pages에서 필수)
@@ -38,11 +44,25 @@ export default defineConfig({
   site: "https://team-CodeLounge.github.io/",
   
   integrations: [
+    // 📌 Expressive Code + 줄번호 플러그인 추가
+    astroExpressiveCode({
+      // themes: ["dracula"],        // 원하는 코드박스 테마
+      // themes: ["one-dark-pro"],
+      themes: ["github-dark"],
+
+      plugins: [
+        pluginLineNumbers(),      // ← 줄 번호 기능 활성화!
+      ],
+    }),
+
     // Starlight는 Astro 공식 문서 사이트 테마.
     // 사이드바 구성, 문서 레이아웃, 검색 등을 제공하는 문서 사이트 전용 통합 패키지.
     starlight({		
       // 문서 사이트의 전체 제목 (헤더 + 브라우저 탭 제목에 사용됨)
       title: 'Swift Docs',
+      customCss: [
+        './src/styles/custom.css',
+      ],
 
       // 우측 상단에 표시될 소셜 링크 모음
       social: [

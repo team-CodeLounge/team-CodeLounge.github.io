@@ -322,6 +322,13 @@
   dependencies:
     "@expressive-code/core" "^0.41.3"
 
+"@expressive-code/plugin-line-numbers@^0.41.3":
+  version "0.41.3"
+  resolved "https://registry.yarnpkg.com/@expressive-code/plugin-line-numbers/-/plugin-line-numbers-0.41.3.tgz#33d375a05ba819ed1a62b23a3756440412841f79"
+  integrity sha512-eig82a4CRC3XgVPQ2S/TMDcLiHJokOCD/mAdNVImpD3segVewxfjGgtj5DXQRo0E0q6f0R0EH34YzTFl5CEPqg==
+  dependencies:
+    "@expressive-code/core" "^0.41.3"
+
 "@expressive-code/plugin-shiki@^0.41.3":
   version "0.41.3"
   resolved "https://registry.yarnpkg.com/@expressive-code/plugin-shiki/-/plugin-shiki-0.41.3.tgz#00665e981e540b548ad1c6271464a0246e8721a8"
@@ -901,7 +908,7 @@ astring@^1.8.0:
   resolved "https://registry.yarnpkg.com/astring/-/astring-1.9.0.tgz#cc73e6062a7eb03e7d19c22d8b0b3451fd9bfeef"
   integrity sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==
 
-astro-expressive-code@^0.41.1:
+astro-expressive-code@^0.41.1, astro-expressive-code@^0.41.3:
   version "0.41.3"
   resolved "https://registry.yarnpkg.com/astro-expressive-code/-/astro-expressive-code-0.41.3.tgz#1751ffa19246c31aff31f543d7e23b53cb4c5c78"
   integrity sha512-u+zHMqo/QNLE2eqYRCrK3+XMlKakv33Bzuz+56V1gs8H0y6TZ0hIi3VNbIxeTn51NLn+mJfUV/A0kMNfE4rANw==
