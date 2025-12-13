@@ -127,11 +127,25 @@ export default defineConfig({
           autogenerate: { directory: 'part7' },
         },
         {
-          label: '8. Backend',           // Test 섹션 제목
+          label: '8. 디자인 패턴',           // Test 섹션 제목
           
           // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
           // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
           autogenerate: { directory: 'part8' },
+        },
+        {
+          label: '9, Architecture',           // Test 섹션 제목
+          
+          // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
+          // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
+          autogenerate: { directory: 'part9' },
+        },
+        {
+          label: '10. Backend',           // Test 섹션 제목
+          
+          // reference 디렉토리 내부의 문서를 자동으로 스캔하여 사이드바 구성
+          // 파일을 새로 추가해도 자동으로 sidebar 항목 생성됨.
+          autogenerate: { directory: 'part10' },
         },
       ],
     }),
