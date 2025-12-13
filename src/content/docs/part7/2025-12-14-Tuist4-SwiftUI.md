@@ -1,5 +1,5 @@
 ---
-title: Tuist4 마이그레이션
+title: Tuist4 SwiftUI
 description: A reference page in my new Starlight docs site.
 ---
 
@@ -46,11 +46,35 @@ tuist grah
 
 # 설정 파일 열기 테스트 후 다시 닫기
 tuist edit
+```
 
+## 모듈 만들기(SwiftUI)
+```bash
 # 폴더 생성
 mkdir App 
 mkdir Modules
+
+# 메인 프로젝트를 App으로 이동 및 Project.swift수정
+tuist edit
+
+# 모듈 생성 샘플 3개
+cd Modules
+
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 모듈 만들기(UIKit)
 tuist4 부터 UIKit버전 생성이 사라졌으므로 이를 해결하기 위해 아래와 같이 진행
