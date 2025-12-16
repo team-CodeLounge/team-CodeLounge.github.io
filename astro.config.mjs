@@ -50,9 +50,9 @@ export default defineConfig({
       // themes: ["one-dark-pro"],
       themes: ["github-dark"],
 
-      plugins: [
-        pluginLineNumbers(),      // ← 줄 번호 기능 활성화!
-      ],
+      // plugins: [
+      //   pluginLineNumbers(),      // ← 줄 번호 기능 활성화!
+      // ],
     }),
 
     // Starlight는 Astro 공식 문서 사이트 테마.
