@@ -18,7 +18,7 @@ jobs:
       # Node 버전 지정
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: yarn
 
       # 의존성 설치
