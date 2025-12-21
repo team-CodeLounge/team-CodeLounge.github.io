@@ -37,6 +37,10 @@ import starlight from '@astrojs/starlight';
 import astroExpressiveCode from "astro-expressive-code";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 
+//yarn add @pasqal-io/starlight-client-mermaid
+import starlightClientMermaid from '@pasqal-io/starlight-client-mermaid'
+
+
 // https://astro.build/config
 export default defineConfig({
   // 사이트의 절대 URL (GitHub Pages에서 필수)
@@ -52,7 +56,7 @@ export default defineConfig({
 
       // plugins: [
       //   pluginLineNumbers(),      // ← 줄 번호 기능 활성화!
-      // ],
+      // ],      
     }),
 
     // Starlight는 Astro 공식 문서 사이트 테마.
@@ -60,6 +64,9 @@ export default defineConfig({
     starlight({		
       // 문서 사이트의 전체 제목 (헤더 + 브라우저 탭 제목에 사용됨)
       title: 'Swift Docs',
+      plugins: [
+        starlightClientMermaid(), // ⭐ 이 줄이 핵심
+      ],
       customCss: [
         './src/styles/custom.css',
       ],

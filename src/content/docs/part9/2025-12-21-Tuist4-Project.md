@@ -1,5 +1,5 @@
 ---
-title: Tuist4
+title: Tuist4 실전 프로젝트 적용
 description: A reference page in my new Starlight docs site.
 ---
 
@@ -146,23 +146,6 @@ let project = Project(
 )
 ```
 
-## 폴더 이동
-```bash
-# 폴더 생성
-mkdir Project
-
-# 프로젝트 폴더 경로 이동
-./HelloWorldApp/ ./Project/
-
-# Projct.swift에서 Project/경로 수정
-tuist edit
-
-# 프로젝트 확인
-tuist generate
-```
-
-## 모듈 추가
-
 ## Tuist 설치 및 활성화 스크립트
 ```bash
 # bootstrap.sh
@@ -200,7 +183,3 @@ echo "---------------------------------\n"
 ## Reference
 - [Blog](https://green1229.tistory.com/486)
 - [ZUM](https://zuminternet.github.io/iOS-tuist-module/)
-- [Blog](https://dev-in-gym.tistory.com/entry/Tuist-모듈-생성-과-모듈-내-테스트-타겟-생성)
-- [Blog](https://eunjin3786.tistory.com/659)
-- [Blog](https://velog.io/@junlight94/Tuist설치-및-프로젝트-적용)
-- [모듈러 아키텍처](https://velog.io/@junlight94/Modular-Architecture-구성-및-적용-방법-Scaffold-Template)
