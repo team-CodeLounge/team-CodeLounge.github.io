@@ -3,7 +3,270 @@ title: Tuist4 실전 프로젝트 적용
 description: A reference page in my new Starlight docs site.
 ---
 
-## Tuist란?
+## 프로젝트 생성
+```bash
+# 현재 디렉토리를 Tuist 프로젝트로 초기화
+# - Project.swift, Tuist/Config.swift 등이 생성됨
+tuist init
+
+# Tuist 프로젝트 루트로 이동
+cd 프로젝트
+
+# tuist 편집(선택)
+tuist edit
+
+# Xcode 프로젝트(.xcodeproj) 생성
+tuist generate
+```
+
+## 프로젝트 루트에 Workspace.swift생성
+- Workspace는 여러 Project를 하나의 Xcode Workspace로 묶는 역할을 합니다.
+- `Project.swift` -> 하나의 모듈(앱, 프레임워크 등)
+- `Workspace.swift` -> 여러 Project를 묶는 컨테이너
+- Xcode에서 .xcworkspace가 생성되는 구조입나다.
+```swift
+// Workspace.swift
+import ProjectDescription
+
+let workspace = Workspace(
+    name: "SwiftUIApp",
+    projects: [
+        "Project/App",
+        "Project/Feature/*"
+    ]
+)
+```
+
+## App 만들기 
+```swift
+// 기존 SwiftUIApp 디렉터리 전체 제거(Project/App폴더 내에 Package.swift로 직접 만들기 위함)
+
+// 폴더 생성
+mkdir Project
+cd Project
+mkdir App
+mkdir Feature
+
+// App 폴더 이동
+cd App
+
+// App 전용 Project.swift 생성
+tuist edit, Project.swift 생성
+
+// App/Project.wift
+import ProjectDescription
+
+let project = Project(
+    name: "App",
+    targets: [
+        .target(
+            name: "App",
+            destinations: .iOS,
+            product: .app,
+            bundleId: "com.example.app",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .extendingDefault(with: [
+                "UILaunchScreen": [:]
+            ]),
+            sources: ["Sources/**"],
+            resources: ["Resources/**"],
+            dependencies: [
+                // Feature 의존성은 나중에 추가
+            ]
+        )
+    ]
+)
+
+
+// App 디렉토리에서 실제 폴더 밒 샘플 파일 생성
+mkdir Sources
+mkdir Resources
+touch Sources/App.swift
+touch Sources/ContentView.swift
+
+// App 디렉토리에서 프로젝트 생성
+tuist generate
+```
+
+## App 모듈 만들기(자동화)
+- 기본적인 방법을 알아보았으니 이제 템플릿화를 해보겠습니다.
+```swift
+// Tuist/Templates/App/Sources
+// App.stencil
+import SwiftUI
+
+@main
+struct {{ name }}App: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+// Tuist/Templates/App/Sources
+// ContentView.stencil
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Text("{{ name }} App")
+        }
+    }
+}
+
+// Tuist/Templates/App
+// Project.stencil
+import ProjectDescription
+
+let project = Project(
+    name: "{{ name }}",
+    targets: [
+        .target(
+            name: "{{ name }}",
+            destinations: .iOS,
+            product: .app,
+            bundleId: "com.example.{{ name | lowercase }}",
+            deploymentTargets: .iOS("17.0"),
+            infoPlist: .extendingDefault(with: [
+                "UILaunchScreen": [:]
+            ]),
+            sources: ["Sources/**"],
+            resources: ["Resources/**"],
+            dependencies: [
+                // Feature 의존성은 나중에 추가
+            ]
+        )
+    ]
+)
+
+// Tuist/Templates/App
+// App.swift
+
+//
+//  {{ name }}App.swift
+//  {{ name }}
+//
+//  Created by {{ author }} on {{ now | date:"yyyy-MM-dd" }}.
+//
+
+import ProjectDescription
+
+let appTemplate = Template(
+    // 이 템플릿의 설명 (tuist scaffold 시 표시됨)
+    description: "Creates an App module",
+    
+    // 사용자에게 입력받을 값들
+    // 예: --name MyApp
+    attributes: [
+        .required("name")
+    ],
+    
+    // 실제로 생성될 파일들 정의
+    items: [
+        // 1. Project.swift
+        .file(
+            // 생성될 파일 경로
+            // 예: MyApp/Project.swift
+            path: "{{ name }}/Project.swift",
+            
+            // 사용할 템플릿 파일
+            // Tuist/Templates/App/Project.stencil
+            templatePath: "Project.stencil"
+        ),
+        
+        // 2. App엔트리 파일 생성
+        .file(
+            // 예: MyApp/Sources/MyAppApp.swift
+            path: "{{ name }}/Sources/{{ name }}App.swift",
+            templatePath: "Sources/App.stencil"
+        ),
+        
+        // 3. ContentView 생성
+        .file(
+            // 예: MyApp/Sources/ContentView.swift
+            path: "{{ name }}/Sources/ContentView.swift",
+            templatePath: "Sources/ContentView.stencil"
+        ),
+        
+        // 4 Xcode처럼 Assets.xcassets 통째로 복사해서 생성
+        .directory(
+            path: "{{ name }}/Resources/",
+            sourcePath: "Assets.xcassets"
+        )
+    ]
+)
+
+// 실행법
+tuist scaffold list
+tuist scaffold App --name App
+cd App
+tuist generate
+```
+
+## 모듈 만들기
+```swift
+// 폴더 생성
+mkdir Project
+cd Project
+mkdir App
+mkdir Feature
+
+// Feature 폴더 이동
+cd Feature
+
+// Auth 폴더 생성
+mkdir Auth
+cd Auth
+
+// App 전용 Project.swift 생성
+tuist edit, Project.swift 생성
+
+// Package.swift
+import ProjectDescription
+
+let project = Project(
+    name: "Auth",
+    targets: [
+        
+        // MARK: - Feature Framework
+        .target(
+            name: "Auth",
+            destinations: .iOS,
+            product: .framework,
+            bundleId: "com.example.auth",
+            deploymentTargets: .iOS("17.0"),
+            sources: ["Sources/**"],
+            resources: ["Resources/**"],
+            dependencies: [
+                
+            ]
+        ),
+    ]
+)
+
+mkdir Sources
+mkdir Resources
+touch Sources/App.swift
+touch Sources/ContentView.swift
+
+// 루트로 이동 후 프로젝트 생성
+tuist generate
+```
+
+
+
+
+
+<!-- ## v3에서 사용하던 ProjectDescriptionHelpers를 사용
+```swift
+
+``` -->
+
+
+
+<!-- ## Tuist란?
 Xcode 프로젝트를 직접 관리하지 않고 코드로 정의해서 자동 생성/최적화해주는 CLI 빌더 툴입니다.  
 기존 xcode에서 했던 targeet, spm, info, build-setting을 tuist로 관리할 수 있습니다.
 - Project.swift 파일을 기반으로 프로젝트(.xcodeproj)파일을 생성해 줍니다.  
@@ -182,4 +445,4 @@ echo "---------------------------------\n"
 
 ## Reference
 - [Blog](https://green1229.tistory.com/486)
-- [ZUM](https://zuminternet.github.io/iOS-tuist-module/)
+- [ZUM](https://zuminternet.github.io/iOS-tuist-module/) -->
